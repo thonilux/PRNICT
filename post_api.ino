@@ -27,9 +27,9 @@ void loop() {
    HTTPClient http;   
   
    http.begin("https://si.ft.uns.ac.id/smartpowerwall/api/ApiData");  //Specify destination for HTTP request
-   http.addHeader("Content-Type", "text/plain");             //Specify content-type header
+   http.addHeader("Content-Type", "application/x-www-form-urlencoded");             //Specify content-type header
   
-   int httpResponseCode = http.POST("{'power':49,'voltage':43,'curent':22}");   //Send the actual POST request
+   int httpResponseCode = http.POST("power=5&voltage=5&current=5&submit=enter");   //Send the actual POST request
   
    if(httpResponseCode>0){
   
