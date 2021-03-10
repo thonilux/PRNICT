@@ -28,8 +28,12 @@ void loop() {
   
    http.begin("https://si.ft.uns.ac.id/smartpowerwall/api/ApiData");  //Specify destination for HTTP request
    http.addHeader("Content-Type", "application/x-www-form-urlencoded");             //Specify content-type header
-  
-   int httpResponseCode = http.POST("power=5&voltage=5&current=5&submit=enter");   //Send the actual POST request
+   int p = random(0,10);
+   int v = random(0,10);
+   int i = random(0,9);
+   String dataout = "power=" + String(p) + "&voltage=" + String(v) + "&current="+ String(i) +"&submit=enter";
+   Serial.println(dataout);
+   int httpResponseCode = http.POST(dataout);   //Send the actual POST request
   
    if(httpResponseCode>0){
   
