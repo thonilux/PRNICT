@@ -22,21 +22,61 @@ void setup() {
 void loop() {
  
   if ((WiFi.status() == WL_CONNECTED)) { //Check the current connection status
- 
+  kontrol();
+  }
+  else{
+    Serial.println("Network Error");
+  }
+  Serial.println("============================================");
+}
+
+void kontrol(){
     HTTPClient http;
     http.begin("https://si.ft.uns.ac.id/smartpowerwall/api/State"); //Specify the URL
     int httpCode=http.GET();
     String response = http.getString();
-      Serial.println(response);
-      Serial.println(response[16]);
-      Serial.println(response[25]);
-      Serial.println(response[34]);
-
-//    String payload1 = http.getString();
-//    Serial.println(payload1);//Make the request
-    http.end(); //Free the resources
-  }
- 
-  delay(10000);
- 
+    int state1 = response[16];
+    int state2 = response[25];
+    int state3 = response[34];
+    http.end();
+    if(state1==49){
+      Serial.print(state1);
+      Serial.print("--");
+      Serial.println("Main Load ON");
+    }
+    else if(state1==48){
+      Serial.print(state1);
+      Serial.print("--");
+      Serial.println("Main Load OFF");
+    }
+    else{
+      Serial.println("System Failure - Check Web API");
+    }
+    if(state2==49){
+            Serial.print(state2);
+      Serial.print("--");
+      Serial.println("Grid ON");
+    }
+    else if(state2==48){
+      Serial.print(state2);
+      Serial.print("--");
+      Serial.println("Grid OFF");
+    }
+    else{
+      Serial.println("System Failure - Check Web API");
+    }
+    if(state3==49){
+            Serial.print(state3);
+      Serial.print("--");
+      Serial.println("Battery ON");
+    }
+    else if(state3==48){
+      Serial.print(state3);
+      Serial.print("--");
+      Serial.println("Main Load OFF");
+    }
+    else{
+      Serial.println("System Failure - Check Web API");
+    }
+    
 }
