@@ -1,0 +1,20 @@
+#include <Arduino.h>
+#include <Wire.h>
+
+int p = random(0,10);
+int v = random(0,10);
+int i = random(0,10);
+void setup() {
+  // put your setup code here, to run once:
+  Serial.begin(115200);
+  //Wire.begin();
+}
+
+void loop() {
+  // put your main code here, to run repeatedly:
+  String dataout = "power=" + String(p) + "&voltage=" + String(v) + "&current=" +String(i) +"&submit=enter"; 
+  //Serial.write(dataout);
+  Serial.println(dataout);
+  //x++;
+  delay(1000);
+}
