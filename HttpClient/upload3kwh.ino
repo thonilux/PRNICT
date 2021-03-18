@@ -30,11 +30,17 @@ void loop() {
    Serial.println(httpResponseCode);
    Serial.println(dataout);
    http.end();
+   if(httpResponseCode==429){
+    Serial.println("Retry");
+    delay(2000);
+   }
+   else if(httpResponseCode==201){
+    Serial.println(dataout);
+   }
    i++;
    if(i>3){
     i=1;
    }
-   Serial.println(dataout);
    delay(1000);
  }
  
