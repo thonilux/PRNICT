@@ -19,6 +19,7 @@ void setup() {
 void loop() {
   
  if(WiFi.status()== WL_CONNECTED){
+   checkpoint:
    HTTPClient http;
    int p = random(0,10);
    int v = random(220,230);
@@ -28,11 +29,11 @@ void loop() {
    String dataout = "kwh="+String(i)+"&power=" + String(p) + "&voltage=" + String(v) + "&current="+ String(io) +"&submit=enter";
    int httpResponseCode = http.POST(dataout);  
    Serial.println(httpResponseCode);
-   Serial.println(dataout);
    http.end();
    if(httpResponseCode==429){
     Serial.println("Retry");
     delay(2000);
+    goto checkpoint;
    }
    else if(httpResponseCode==201){
     Serial.println(dataout);
